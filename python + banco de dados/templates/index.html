@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuários</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Usuários</h1>
+        <form method="POST">
+            <input type="text" name="nome" placeholder="Nome" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <form method="POST" action="/buscar">
+            <input type="text" name="nome_busca" placeholder="Buscar por nome">
+            <button type="submit">Buscar</button>
+        </form>
+
+        <a href="/listar"><button>Mostrar Todos</button></a>
+
+        {% if usuarios %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario[0] }}</td>
+                    <td>{{ usuario[1] }}</td>
+                    <td>{{ usuario[2] }}</td>
+                    <td>
+                        <a href="/editar/{{ usuario[0] }}">✏️ Editar</a>
+                        <a href="/deletar/{{ usuario[0] }}">🗑️ Deletar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</body>
+</html>

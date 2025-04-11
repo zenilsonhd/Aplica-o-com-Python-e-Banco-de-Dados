@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuários</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>👥 Lista de Usuários</h1>
+
+        <form action="/buscar" method="GET">
+            <input type="text" name="nome" placeholder="Buscar por nome" required>
+            <button type="submit">🔍 Buscar</button>
+        </form>
+
+        {% if usuarios %}
+            <ul>
+                {% for usuario in usuarios %}
+                    <li>
+                        <strong>{{ usuario[1] }}</strong> ({{ usuario[2] }})
+                        <a href="/editar/{{ usuario[0] }}" class="btn">🖊️ Editar</a>
+                        <a href="/deletar/{{ usuario[0] }}" class="btn danger" onclick="return confirm('Tem certeza que deseja excluir?')">🗑️ Excluir</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Nenhum usuário encontrado.</p>
+        {% endif %}
+
+        <div class="menu">
+            <a href="/" class="btn">⬅️ Voltar</a>
+        </div>
+    </div>
+</body>
+</html>
